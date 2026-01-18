@@ -335,7 +335,7 @@ types-pyyaml = ">=6.0.12.20240311,<7.0.0.0"
 [package.source]
 type = "legacy"
 url = "https://pypi.mw.local"
-reference = "local"
+reference = "private"
 
 [[package]]
 name = "extensions-opentelemetry"
@@ -359,7 +359,7 @@ opentelemetry-sdk = ">=1.22.0,<2.0.0"
 [package.source]
 type = "legacy"
 url = "https://pypi.mw.local"
-reference = "local"
+reference = "private"
 
 [[package]]
 name = "fastapi"
@@ -1708,4 +1708,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.12"
-content-hash = "c32ebff7b0c0d76f50ecb1d6a96c0b0c3773a26ca0c69979eea1fde44aca312b"
+content-hash = "a8c4f4c91c9b6c784eb71b66e2a89760f33d42bb6ccb9bbdf10df6b53f3daeb0"
