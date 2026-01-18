@@ -1,0 +1,37 @@
+[project]
+name = "auth"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Matias Wallenius",email = "MatiWall@live.dk"}
+]
+readme = "README.md"
+requires-python = "~3.12"
+dependencies = [
+    "fastapi (>=0.116.1,<0.117.0)",
+    "uvicorn (>=0.35.0,<0.36.0)",
+    "alembic (>=1.16.4,<2.0.0)",
+    "psycopg2 (>=2.9.10,<3.0.0)",
+    "python-jose (>=3.5.0,<4.0.0)",
+    "pydantic[email] (>=2.11.7,<3.0.0)",
+    "bcrypt (>=4.3.0,<5.0.0)",
+    "python-multipart (>=0.0.20,<0.0.21)",
+    "extensions-opentelemetry (>=1.1.0,<2.0.0)",
+    "sqlmodel (>=0.0.24,<0.0.25)",
+]
+
+[[tool.poetry.source]]
+name = "pypi"
+
+[[tool.poetry.source]]
+name = "private"
+url = "https://pypi.mw.local"
+
+[tool.poetry]
+packages = [
+    {include = "app"}
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

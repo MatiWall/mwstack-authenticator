@@ -1,0 +1,34 @@
+services:
+  db: 
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: authservice
+    ports:
+      - "5432:5432"
+    networks:
+      - db
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_SERVER: postgres
+      PGADMIN_DEFAULT_SERVER_HOST: db
+      PGADMIN_DEFAULT_SERVER_PORT: 5432
+      PGADMIN_DEFAULT_SERVER_USERNAME: postgres
+      PGADMIN_DEFAULT_SERVER_PASSWORD: postgres
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    depends_on:
+      - db
+    networks:
+      - db
+networks:
+  db:
+    driver: bridge
