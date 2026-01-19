@@ -11,3 +11,5 @@ COPY . /app-root
 
 
 RUN poetry install --only main
+
+CMD ["poetry", "run", "python", "-m", "app.main"]
