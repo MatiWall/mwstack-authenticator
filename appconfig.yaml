@@ -1,9 +1,9 @@
 host: 127.0.0.1
 port: 8000
 
-db_host: localhost
+db_host: 192.168.0.11 #localhost
 db_port: 5432
-db_name: authservice
+db_name: MWStackUsers
 db_user: postgres
 
-enable_otel: true
+enable_otel: false

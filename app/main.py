@@ -13,7 +13,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.user import router as user_router
-from settings import BASE_DIR, config
+from app.settings import BASE_DIR, config
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
