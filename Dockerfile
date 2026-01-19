@@ -1,4 +1,4 @@
-FROM python:3.12
+FROM python:3.12-slim
 
 COPY ./certs/homelab-root-ca-bundle.pem ./certs/homelab-root-ca-bundle.pem
 RUN cat /etc/ssl/certs/ca-certificates.crt ./certs/homelab-root-ca-bundle.pem > /etc/ssl/certs/ca-bundle.pem

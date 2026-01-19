@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title='FitTracker Auth Service', lifespan=lifespan)
+app = FastAPI(title='MWStack Auth Service', lifespan=lifespan)
 
 app.include_router(user_router)
 
