@@ -1,3 +1,4 @@
 builds:
+
   - path: 
     name: mwstack-authenticator
