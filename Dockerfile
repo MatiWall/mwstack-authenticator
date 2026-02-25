@@ -9,6 +9,8 @@ RUN pip install poetry
 WORKDIR /app-root
 COPY . /app-root
 
+RUN apt-get update && \ 
+   apt-get install -y libpq-dev gcc
 
 RUN poetry install --only main
 
