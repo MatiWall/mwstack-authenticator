@@ -30,6 +30,7 @@ ENV SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.pem
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.pem
 
 RUN pip install poetry
+RUN poetry self add poetry-plugin-export
 
 RUN poetry export -f requirements.txt --without-hashes -o requirements.txt
 
