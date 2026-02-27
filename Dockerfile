@@ -33,7 +33,7 @@ RUN pip install poetry
 RUN apt-get update && \ 
    apt-get install -y libpq-dev gcc
 
-RUN poetry install --only main
+RUN poetry config virtualenvs.create false && poetry install --only main
 
 FROM python:3.12-slim AS base
 WORKDIR /app-root
@@ -45,7 +45,6 @@ COPY --from=python-builder /app-root/.venv ./
 #   apt-get install -y libpq-dev gcc
 
 # no need for poetry
-RUN source .venv/bin/activate
 
 
 CMD ["python", "-m", "app.main"]
