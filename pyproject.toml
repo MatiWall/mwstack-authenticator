@@ -27,6 +27,7 @@ name = "pypi"
 name = "private"
 url = "https://pypi.mw.local"
 
+
 [tool.poetry]
 packages = [
     {include = "app"}
