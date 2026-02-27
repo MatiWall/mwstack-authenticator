@@ -39,7 +39,7 @@ FROM python:3.12-slim AS base
 WORKDIR /app-root
 
 COPY --from=frontend-builder frontend/dist ./frontend/dist
-COPY --from=python-builder .venv ./
+COPY --from=python-builder /app-root/.venv ./
 
 #RUN apt-get update && \ 
 #   apt-get install -y libpq-dev gcc
