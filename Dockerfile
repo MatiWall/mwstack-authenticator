@@ -37,7 +37,6 @@ RUN poetry export -f requirements.txt --without-hashes -o requirements.txt
 RUN apt-get update && \ 
    apt-get install -y libpq-dev gcc
 
-RUN poetry bundle venv --only main /venv
 
 FROM python:3.12-slim AS base
 WORKDIR /app-root
