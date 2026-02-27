@@ -30,17 +30,9 @@ COPY secrets.yaml ./secrets.yaml
 COPY README.md ./README.md
 # Temp
 
-
-#COPY ./certs/homelab-root-ca-bundle.pem ./certs/homelab-root-ca-bundle.pem
-#RUN cat /etc/ssl/certs/ca-certificates.crt ./certs/homelab-root-ca-bundle.pem > /etc/ssl/certs/ca-bundle.pem
-#ENV SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.pem
-#ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.pem
-
-
 RUN poetry export -f requirements.txt --without-hashes -o requirements.txt
 
 
-RUN ls -la
 
 FROM python:3.12-slim AS base
 WORKDIR /app-root
@@ -48,8 +40,14 @@ WORKDIR /app-root
 COPY --from=frontend-builder /frontend/dist ./frontend/dist
 COPY --from=python-builder /app-root/requirements.txt ./requirements.txt
 
-#RUN apt-get update && \ 
-#   apt-get install -y libpq-dev gcc
+RUN apt-get update && \ 
+   apt-get install -y libpq-dev gcc
+
+
+COPY ./certs/homelab-root-ca-bundle.pem ./certs/homelab-root-ca-bundle.pem
+RUN cat /etc/ssl/certs/ca-certificates.crt ./certs/homelab-root-ca-bundle.pem > /etc/ssl/certs/ca-bundle.pem
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.pem
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.pem
 
 # no need for poetry
 RUN pip install --no-cache-dir --user -r requirements.txt
