@@ -39,6 +39,7 @@ WORKDIR /app-root
 
 COPY --from=frontend-builder /frontend/dist ./frontend/dist
 COPY --from=python-builder /app-root/requirements.txt ./requirements.txt
+COPY app ./
 
 RUN apt-get update && \ 
    apt-get install -y libpq-dev gcc
