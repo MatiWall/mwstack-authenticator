@@ -23,10 +23,10 @@ COPY secrets.yaml ./secrets.yaml
 # Temp
 
 
-#COPY ./certs/homelab-root-ca-bundle.pem ./certs/homelab-root-ca-bundle.pem
-#RUN cat /etc/ssl/certs/ca-certificates.crt ./certs/homelab-root-ca-bundle.pem > /etc/ssl/certs/ca-bundle.pem
-#ENV SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.pem
-#ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.pem
+COPY ./certs/homelab-root-ca-bundle.pem ./certs/homelab-root-ca-bundle.pem
+RUN cat /etc/ssl/certs/ca-certificates.crt ./certs/homelab-root-ca-bundle.pem > /etc/ssl/certs/ca-bundle.pem
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.pem
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.pem
 RUN pip install poetry
 
 RUN apt-get update && \ 
@@ -40,8 +40,8 @@ WORKDIR /app-root
 COPY --from=frontend-builder frontend/dist ./frontend/dist
 COPY --from=python-builder .venv ./
 
-RUN apt-get update && \ 
-   apt-get install -y libpq-dev gcc
+#RUN apt-get update && \ 
+#   apt-get install -y libpq-dev gcc
 
 # no need for poetry
 RUN source .venv/bin/activate
