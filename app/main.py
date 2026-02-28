@@ -12,12 +12,16 @@ import uvicorn
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 
+
+from extensions.configuration.hosting_environment import is_development
+
 from app.api.v1.user import router as user_router
 from app.settings import BASE_DIR, config
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    #setup_db()
+    if is_development():
+        setup_db()
     yield
 
 
@@ -27,8 +31,8 @@ app.include_router(user_router)
 
 app.mount("/login/static", StaticFiles(directory=BASE_DIR / 'frontend/dist', html=True), name='static')
 
-@app.get("/login/{full_path:path}")
-async def catch_all(full_path: str):
+@app.get("/login")
+async def catch_all():
     return FileResponse(BASE_DIR / 'frontend/dist/index.html')
 
 @app.get("/login/{full_path:path}")
