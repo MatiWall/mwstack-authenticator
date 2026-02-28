@@ -17,7 +17,7 @@ RUN poetry self add poetry-plugin-export
 RUN apt-get update && \ 
    apt-get install -y libpq-dev gcc
 
-WORKDIR /app-root
+WORKDIR /app
 
 
 
@@ -35,7 +35,7 @@ RUN poetry export -f requirements.txt --without-hashes -o requirements.txt
 
 
 FROM python:3.12-slim AS base
-WORKDIR /app-root
+WORKDIR /app
 
 COPY --from=frontend-builder /frontend/dist ./frontend/dist
 COPY --from=python-builder /app-root/requirements.txt ./requirements.txt
