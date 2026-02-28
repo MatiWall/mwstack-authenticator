@@ -17,7 +17,7 @@ from app.settings import BASE_DIR, config
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    setup_db()
+    #setup_db()
     yield
 
 
