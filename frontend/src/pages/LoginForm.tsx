@@ -45,9 +45,9 @@ const LoginForm: React.FC = () => {
               </Box>
             )}
       <Box style={{marginTop: '0.5rem'}}>
-        <Link href='/login/forgot' style={{'marginRight': '0.7rem'}} underline='hover'>Forgot Password?</Link>
-        <Link href='/login/reset' style={{'marginRight': '0.7rem'}} underline='hover'>Reset Password</Link>
-        <Link href='/login/signup' underline='hover'>Signup</Link>
+        <Link href={`/login/forgot?redirect_url=${redirectURL}`} style={{'marginRight': '0.7rem'}} underline='hover'>Forgot Password?</Link>
+        <Link href={`/login/reset?redirect_url=${redirectURL}`} style={{'marginRight': '0.7rem'}} underline='hover'>Reset Password</Link>
+        <Link href={`/login/signup?redirect_url=${redirectURL}`} underline='hover'>Signup</Link>
       </Box>
     </Box>
   );

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Link } from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
 
 const ForgotPasswordForm: React.FC = () => {
   const [email, setEmail] = useState('');
+
+  const [searchParams] = useSearchParams();
+  const redirectURL = searchParams.get('redirect_url');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,8 +27,8 @@ const ForgotPasswordForm: React.FC = () => {
         Send Reset Link
       </Button>
         <Box style={{marginTop: '0.5rem'}}>
-            <Link href='/login/' style={{'marginRight': '0.7rem'}} underline='hover'>Login</Link>
-            <Link href='/login/reset/' underline='hover'>Reset Password</Link>
+            <Link href={`/login?redirect_url=${redirectURL}`} style={{'marginRight': '0.7rem'}} underline='hover'>Login</Link>
+            <Link href={`/login/reset?redirect_url=${redirectURL}`} underline='hover'>Reset Password</Link>
       </Box>
     </Box>
   );

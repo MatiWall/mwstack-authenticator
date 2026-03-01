@@ -58,7 +58,7 @@ const SignupForm: React.FC = () => {
         Sign Up
       </Button>
       <Box mt={1}>
-        <Link href="/login/" underline="hover">
+        <Link href={`/login?redirect_url${redirectURL}`} underline="hover">
           Already have an account? Login
         </Link>
       </Box>
