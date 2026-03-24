@@ -58,3 +58,31 @@ export async function signUpUser(
       setError("Signup failed. Please try again.");
     }
 }
+
+
+export async function requestPasswordReset(
+    email: string,
+    password: string,
+    passwordNew: string,
+    confirmPasswordNew: string,
+    redirectURL: string,
+    setError: (error: string) => void
+  ){
+    if (passwordNew !== confirmPasswordNew) {
+      setError("New passwords do not match");
+      return;
+    }
+    
+    try{
+      await UserService.resetPasswordUserResetPasswordPost({
+        email,
+        password,
+        new_password: passwordNew,
+      })
+
+      await loginUser(email, passwordNew, redirectURL, setError)
+    } catch (err) {
+      console.error("Password reset failed:", err);
+      setError("Failed to reset password. Please try again.");
+    }
+  }

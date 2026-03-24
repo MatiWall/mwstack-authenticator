@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 from sqlmodel import Session
 
 from app.db.setup import get_session
 from app.services.security import get_password_hash, verify_password, create_access_token
-from app.models.user import UserCreateRaw, UserCreate, Token, UserRead
+from app.models.user import UserCreateRaw, UserCreate, Token, UserRead, ResetPasswordRequest
 
-from app.services.user import delete_user_by_id, get_all_users, get_user_by_email, register_user
+from app.services.user import delete_user_by_id, get_all_users, get_user_by_email, register_user, reset_user_password
 
 router = APIRouter(prefix="/user", tags=["User"])
 
@@ -56,24 +56,14 @@ def login(form_data: LoginRequest, session: Session = Depends(get_session)):
     access_token = create_access_token(data={"sub": str(user.id)})
     return {"access_token": access_token, "token_type": "bearer"}
 
+@router.get("/forgot-password")
+def forgot_password():
+    return {"message": "Password reset link sent to your email (simulated)"}
 
-# @router.get("/login", response_class=HTMLResponse)
-# async def login_page(request: Request, redirect_uri: str):
-#     return templates.TemplateResponse("login.html", {"request": request, "redirect_uri": redirect_uri})
 
-
-# @router.post("/login")
-# async def login_and_redirect(
-#     username: str = Form(...),
-#     password: str = Form(...),
-#     redirect_uri: str = Form(...)
-# ):
-#     user = get_user_by_email(username)
-#     if not user or not verify_password(password, user.password_hash):
-#         # Optionally: re-render form with error message
-#         raise HTTPException(status_code=401, detail="Invalid credentials")
-
-#     access_token = create_access_token(data={"sub": str(user.id)})
-#     redirect_url = f"{redirect_uri}?token={access_token}"
-
-#     return RedirectResponse(url=redirect_url, status_code=302)
+@router.post("/reset-password")
+def reset_password(
+    reset_request: ResetPasswordRequest, 
+    session: Session = Depends(get_session)
+    ):
+    return reset_user_password(reset_request, session)

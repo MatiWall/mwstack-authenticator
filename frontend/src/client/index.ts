@@ -9,6 +9,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { LoginRequest } from './models/LoginRequest';
+export type { ResetPasswordRequest } from './models/ResetPasswordRequest';
 export type { Token } from './models/Token';
 export type { UserCreateRaw } from './models/UserCreateRaw';
 export type { UserRead } from './models/UserRead';

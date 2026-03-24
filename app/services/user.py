@@ -2,9 +2,12 @@ import logging
 
 from fastapi import HTTPException
 from sqlmodel import Session, select
+
+from app.models import user
+from app.services.security import get_password_hash, verify_password
 logger = logging.getLogger(__name__)
 from app.db.models import User
-from app.models.user import UserCreate, UserRead
+from app.models.user import UserCreate, UserPasswordUpdate, UserRead
 
 def register_user(user: UserCreate, session: Session) -> UserRead:
     logger.info(f"Registering user: {user.email}: {user}")
@@ -89,3 +92,18 @@ def delete_user_by_id(user_id: int, session: Session) -> UserRead:
             disabled=user.disabled, 
             is_verified=user.is_verified
         )
+    
+def reset_user_password(reset_request: user.ResetPasswordRequest, session: Session):
+    db_user = session.exec(select(User).filter(User.email == reset_request.email)).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if not verify_password(reset_request.password, db_user.password_hash):
+        raise HTTPException(status_code=401, detail="Invalid current password")
+
+    db_user.password_hash = get_password_hash(reset_request.new_password)
+    session.add(db_user)
+    session.commit()
+    session.refresh(db_user)
+
+    return UserPasswordUpdate(message="Password reset successful", user_id=db_user.id)

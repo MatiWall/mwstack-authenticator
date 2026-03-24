@@ -23,3 +23,11 @@ class Token(BaseModel):
     access_token: str
     token_type: str
     
+class ResetPasswordRequest(BaseModel):
+    email: str
+    password: str
+    new_password: str
+    
+class UserPasswordUpdate(BaseModel):
+    message: str
+    user_id: int

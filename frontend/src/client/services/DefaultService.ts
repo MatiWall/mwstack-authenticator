@@ -7,6 +7,17 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class DefaultService {
     /**
+     * Catch All
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static catchAllLoginGet(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/login',
+        });
+    }
+    /**
      * Login Catch All
      * @param fullPath
      * @returns any Successful Response

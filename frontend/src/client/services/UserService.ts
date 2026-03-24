@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { LoginRequest } from '../models/LoginRequest';
+import type { ResetPasswordRequest } from '../models/ResetPasswordRequest';
 import type { Token } from '../models/Token';
 import type { UserCreateRaw } from '../models/UserCreateRaw';
 import type { UserRead } from '../models/UserRead';
@@ -73,6 +74,36 @@ export class UserService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/token',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Forgot Password
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static forgotPasswordUserForgotPasswordGet(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/user/forgot-password',
+        });
+    }
+    /**
+     * Reset Password
+     * @param requestBody
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static resetPasswordUserResetPasswordPost(
+        requestBody: ResetPasswordRequest,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/user/reset-password',
             body: requestBody,
             mediaType: 'application/json',
             errors: {

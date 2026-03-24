@@ -2,8 +2,6 @@ import { Box, Container, Typography, useTheme } from '@mui/material';
 import { LoginForm, ResetPasswordForm, ForgotPasswordForm, SignupForm } from './pages';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-
-
 function App() {
 
   const theme = useTheme();
