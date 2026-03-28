@@ -13,7 +13,7 @@ function App() {
     <Box style={{width: '100vw', height: '100vh', padding: 0, margin: 0, background: theme.palette.background.paper}}>
             <Container maxWidth="sm" sx={{ mt: 8 }}>
           <Box textAlign="center" mb={2}>
-            <Typography variant="h4">FitTracker Auth</Typography>
+            <Typography variant="h4">MWStack Authentication</Typography>
           </Box>
 
         <BrowserRouter>
