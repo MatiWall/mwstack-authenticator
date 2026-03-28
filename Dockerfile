@@ -26,7 +26,6 @@ COPY alembic.ini ./alembic.ini
 COPY appconfig.yaml ./appconfig.yaml
 COPY poetry.lock ./poetry.lock
 COPY pyproject.toml ./pyproject.toml
-COPY secrets.yaml ./secrets.yaml 
 COPY README.md ./README.md
 # Temp
 
