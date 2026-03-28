@@ -101,6 +101,28 @@ export async function sendPasswordResetEmail(email: string, setError: (error: st
     setError("User for email not found. Please try again.");
   }
 
+}
 
 
+export async function resetPasswordWithToken(
+  token: string,
+  password: string,
+  confirmPassword: string,
+  setError: (error: string) => void
+) {
+  if (password !== confirmPassword) {
+    setError("Passwords do not match");
+    return;
+  }
+
+  try {
+    await UserService.forgotPasswordResetUserForgotPasswordResetPost({
+      token,
+      password
+    });
+    return { success: true, message: "Password reset successful" };
+  } catch (err) {
+    console.error("Failed to reset password with.");
+    setError("Failed to reset password. Please try again.");
+  }
 }

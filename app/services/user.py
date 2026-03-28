@@ -5,10 +5,11 @@ from sqlmodel import Session, select
 
 from app.models import user
 from app.services.email import send_email
-from app.services.security import get_password_hash, verify_password
+from app.services.security import create_reset_password_token, decode_reset_password_token, get_password_hash, verify_password
 logger = logging.getLogger(__name__)
 from app.db.models import User
 from app.models.user import UserCreate, UserPasswordUpdate, UserRead
+from app.settings import config
 
 def register_user(user: UserCreate, session: Session) -> UserRead:
     logger.info(f"Registering user: {user.email}: {user}")
@@ -111,12 +112,53 @@ def reset_user_password(reset_request: user.ResetPasswordRequest, session: Sessi
 
 
 def send_reset_email(email: str):
+    token = create_reset_password_token(email)
+    url = f"{config.base_url}/{config.url_forgot_password}?token={token}"
+    
+    body = f"""
+        <h2>Reset your password</h2>
 
+        <p>We received a password reset request for your account associated with {email}.</p>
+
+        <p>Click the button below to choose a new password:</p>
+
+        <a href="{url}" 
+        style="
+            display:inline-block;
+            padding:12px 20px;
+            background:#000;
+            color:#fff;
+            text-decoration:none;
+            border-radius:6px;
+            font-weight:bold;
+        ">
+        Reset Password
+        </a>
+
+        <p>This link will expire in 30 minutes.</p>
+
+        <p>If you did not request this, you can safely ignore this email.</p>
+
+        <p>— MWStack Security</p>
+    """
+    
     send_email(
         to_email=email,
         subject="Password Reset Request",
-        body="Click the link below to reset your password:\n\nhttp://localhost:8000/reset-password?email={email}&token=example-token"
+        body=body
     )
 
 
     pass
+
+def forgot_user_password_reset(reset_request: user.ForgotPasswordResetRequest, session: Session):  
+    email = decode_reset_password_token(reset_request.token)  # This will raise an error if the token is invalid or expired
+    db_user = session.exec(select(User).filter(User.email == email)).first()
+    
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db_user.password_hash = get_password_hash(reset_request.password)
+    session.add(db_user)
+    session.commit()
+    
+    return {"success": True, "message": "Password reset successful"}

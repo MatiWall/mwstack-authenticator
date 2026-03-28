@@ -1,14 +1,19 @@
+import logging
+logger = logging.getLogger(__name__)
+
+from pydantic import BaseModel
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.security import OAuth2PasswordBearer
 from sqlmodel import Session
 
 from app.db.setup import get_session
-from app.services.security import get_password_hash, verify_password, create_access_token
-from app.models.user import ForgotPasswordRequest, UserCreateRaw, UserCreate, Token, UserRead, ResetPasswordRequest
+from app.services.security import decode_reset_password_token, get_password_hash, verify_password, create_access_token
+from app.models.user import ForgotPasswordRequest, ForgotPasswordResetRequest, UserCreateRaw, UserCreate, Token, UserRead, ResetPasswordRequest
 
 from app.services.user import (
-    delete_user_by_id, 
+    delete_user_by_id,
+    forgot_user_password_reset, 
     get_all_users, 
     get_user_by_email, 
     register_user, 
@@ -50,7 +55,7 @@ def read_users():
     return users
 
 
-from pydantic import BaseModel
+
 class LoginRequest(BaseModel):
     username: str
     password: str
@@ -70,9 +75,17 @@ def forgot_password(reset_request: ForgotPasswordRequest, session: Session = Dep
 
     if user:
         send_reset_email(reset_request.email)
+        
+    if not user:
+        logger.warning(f"Password reset requested for non-existent email: {reset_request.email}")
 
 
     return {"message": f"If a user with email {reset_request.email} exists, a password reset link has been sent."}
+
+@router.post("/forgot-password-reset")
+def forgot_password_reset(reset_request: ForgotPasswordResetRequest, session: Session = Depends(get_session)):
+    return forgot_user_password_reset(reset_request, session)
+    
 
 
 @router.post("/reset-password")

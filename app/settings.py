@@ -21,6 +21,11 @@ class Config:
     enable_otel: bool
     
     resend_token: str
+    
+    password_reset_token: str
+    
+    base_url: str
+    url_forgot_password: str
 
     
 

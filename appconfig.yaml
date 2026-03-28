@@ -1,6 +1,10 @@
 host: 127.0.0.1
 port: 8000
 
+base_url: http://localhost:8000
+
+url_forgot_password: login/forgot/reset
+
 db_host: 192.168.0.11 #localhost
 db_port: 5432
 db_name: MWStackUsers

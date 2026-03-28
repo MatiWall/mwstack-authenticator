@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ForgotPasswordRequest } from '../models/ForgotPasswordRequest';
+import type { ForgotPasswordResetRequest } from '../models/ForgotPasswordResetRequest';
 import type { LoginRequest } from '../models/LoginRequest';
 import type { ResetPasswordRequest } from '../models/ResetPasswordRequest';
 import type { Token } from '../models/Token';
@@ -94,6 +95,25 @@ export class UserService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/forgot-password',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Forgot Password Reset
+     * @param requestBody
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static forgotPasswordResetUserForgotPasswordResetPost(
+        requestBody: ForgotPasswordResetRequest,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/user/forgot-password-reset',
             body: requestBody,
             mediaType: 'application/json',
             errors: {

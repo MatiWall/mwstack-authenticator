@@ -30,6 +30,11 @@ class ResetPasswordRequest(BaseModel):
     
 class ForgotPasswordRequest(BaseModel):
     email: str
+
+    
+class ForgotPasswordResetRequest(BaseModel):
+    token: str
+    password: str
     
 class UserPasswordUpdate(BaseModel):
     message: str

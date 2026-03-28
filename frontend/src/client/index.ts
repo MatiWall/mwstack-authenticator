@@ -8,6 +8,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { ForgotPasswordRequest } from './models/ForgotPasswordRequest';
+export type { ForgotPasswordResetRequest } from './models/ForgotPasswordResetRequest';
 export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { LoginRequest } from './models/LoginRequest';
 export type { ResetPasswordRequest } from './models/ResetPasswordRequest';

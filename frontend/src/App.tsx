@@ -1,5 +1,5 @@
 import { Box, Container, Typography, useTheme } from '@mui/material';
-import { LoginForm, ResetPasswordForm, ForgotPasswordForm, SignupForm } from './pages';
+import { LoginForm, ResetPasswordForm, ForgotPasswordForm, SignupForm, ForgotPasswordResetForm } from './pages';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {AlertProvider} from '@mwstack/alerting'
 
@@ -23,6 +23,7 @@ function App() {
             <Route path='/login/reset/' element={<ResetPasswordForm/>}/>
             <Route path='/login/forgot/' element={<ForgotPasswordForm/>}/>
             <Route path='/login/signup/' element={<SignupForm/>}/>
+            <Route path='/login/forgot/reset/' element={<ForgotPasswordResetForm/>} />
           </Routes>
         </BrowserRouter>
      
