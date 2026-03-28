@@ -30,7 +30,7 @@ class ResetPasswordRequest(BaseModel):
     
 class ForgotPasswordRequest(BaseModel):
     email: str
-
+    redirect_url: str
     
 class ForgotPasswordResetRequest(BaseModel):
     token: str

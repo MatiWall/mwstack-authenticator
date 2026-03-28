@@ -13,7 +13,13 @@ const ForgotPasswordForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: call backend to send reset email
-    await sendPasswordResetEmail(email, setError);
+
+    if (!redirectURL) {
+      setError("Missing redirect URL");
+      return;
+    }
+
+    await sendPasswordResetEmail(email, redirectURL, setError);
   }; 
 
   return (

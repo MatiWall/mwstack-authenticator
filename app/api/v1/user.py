@@ -74,7 +74,7 @@ def forgot_password(reset_request: ForgotPasswordRequest, session: Session = Dep
     user = get_user_by_email(reset_request.email, session)
 
     if user:
-        send_reset_email(reset_request.email)
+        send_reset_email(reset_request)
         
     if not user:
         logger.warning(f"Password reset requested for non-existent email: {reset_request.email}")

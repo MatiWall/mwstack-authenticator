@@ -17,12 +17,22 @@ const ForgotPasswordResetForm: React.FC = () => {
     e.preventDefault();
     // TODO: call backend to send reset email
     const token = searchParams.get('token');
+    const redirectURL = searchParams.get('redirect_url');
 
     if (!token) {
       setError("Missing token");
       return;
     }
-    await resetPasswordWithToken(token, password, confirmPassword, setError);
+    const resp = await resetPasswordWithToken(token, password, confirmPassword, setError);
+
+    if (resp?.success) {
+      if (redirectURL) {
+      window.location.href = redirectURL;
+      } else {
+        setError("Password reset successful, but missing redirect URL");
+      }
+
+    }
 
   }; 
 

@@ -87,12 +87,13 @@ export async function requestPasswordReset(
     }
   }
 
-export async function sendPasswordResetEmail(email: string, setError: (error: string) => void) { 
+export async function sendPasswordResetEmail(email: string, redirectURL: string, setError: (error: string) => void) { 
 
   try {
 
     const resp = await UserService.forgotPasswordUserForgotPasswordPost({
-      email
+      email,
+      redirect_url: redirectURL
     })
     return resp.message;
 

@@ -8,7 +8,7 @@ from app.services.email import send_email
 from app.services.security import create_reset_password_token, decode_reset_password_token, get_password_hash, verify_password
 logger = logging.getLogger(__name__)
 from app.db.models import User
-from app.models.user import UserCreate, UserPasswordUpdate, UserRead
+from app.models.user import ForgotPasswordRequest, UserCreate, UserPasswordUpdate, UserRead
 from app.settings import config
 
 def register_user(user: UserCreate, session: Session) -> UserRead:
@@ -111,14 +111,14 @@ def reset_user_password(reset_request: user.ResetPasswordRequest, session: Sessi
     return UserPasswordUpdate(message="Password reset successful", user_id=db_user.id)
 
 
-def send_reset_email(email: str):
-    token = create_reset_password_token(email)
-    url = f"{config.base_url}/{config.url_forgot_password}?token={token}"
+def send_reset_email(request: ForgotPasswordRequest):
+    token = create_reset_password_token(request.email)
+    url = f"{config.base_url}/{config.url_forgot_password}?token={token}&redirect_url={request.redirect_url}"
     
     body = f"""
         <h2>Reset your password</h2>
 
-        <p>We received a password reset request for your account associated with {email}.</p>
+        <p>We received a password reset request for your account associated with {request.email}.</p>
 
         <p>Click the button below to choose a new password:</p>
 
@@ -143,7 +143,7 @@ def send_reset_email(email: str):
     """
     
     send_email(
-        to_email=email,
+        to_email=request.email,
         subject="Password Reset Request",
         body=body
     )
