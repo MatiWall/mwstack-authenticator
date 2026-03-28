@@ -86,3 +86,21 @@ export async function requestPasswordReset(
       setError("Failed to reset password. Please try again.");
     }
   }
+
+export async function sendPasswordResetEmail(email: string, setError: (error: string) => void) { 
+
+  try {
+
+    const resp = await UserService.forgotPasswordUserForgotPasswordPost({
+      email
+    })
+    return resp.message;
+
+  } catch (err) {
+    console.error("Failed to send password reset email:", err);
+    setError("User for email not found. Please try again.");
+  }
+
+
+
+}

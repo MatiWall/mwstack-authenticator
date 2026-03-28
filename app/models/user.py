@@ -28,6 +28,9 @@ class ResetPasswordRequest(BaseModel):
     password: str
     new_password: str
     
+class ForgotPasswordRequest(BaseModel):
+    email: str
+    
 class UserPasswordUpdate(BaseModel):
     message: str
     user_id: int

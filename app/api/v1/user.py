@@ -5,9 +5,16 @@ from sqlmodel import Session
 
 from app.db.setup import get_session
 from app.services.security import get_password_hash, verify_password, create_access_token
-from app.models.user import UserCreateRaw, UserCreate, Token, UserRead, ResetPasswordRequest
+from app.models.user import ForgotPasswordRequest, UserCreateRaw, UserCreate, Token, UserRead, ResetPasswordRequest
 
-from app.services.user import delete_user_by_id, get_all_users, get_user_by_email, register_user, reset_user_password
+from app.services.user import (
+    delete_user_by_id, 
+    get_all_users, 
+    get_user_by_email, 
+    register_user, 
+    reset_user_password,
+    send_reset_email
+)
 
 router = APIRouter(prefix="/user", tags=["User"])
 
@@ -56,9 +63,16 @@ def login(form_data: LoginRequest, session: Session = Depends(get_session)):
     access_token = create_access_token(data={"sub": str(user.id)})
     return {"access_token": access_token, "token_type": "bearer"}
 
-@router.get("/forgot-password")
-def forgot_password():
-    return {"message": "Password reset link sent to your email (simulated)"}
+@router.post("/forgot-password")
+def forgot_password(reset_request: ForgotPasswordRequest, session: Session = Depends(get_session)):
+    
+    user = get_user_by_email(reset_request.email, session)
+
+    if user:
+        send_reset_email(reset_request.email)
+
+
+    return {"message": f"If a user with email {reset_request.email} exists, a password reset link has been sent."}
 
 
 @router.post("/reset-password")

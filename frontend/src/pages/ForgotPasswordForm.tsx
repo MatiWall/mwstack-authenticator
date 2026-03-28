@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { Box, Button, TextField, Link } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
+import { sendPasswordResetEmail } from '../utils';
+
 const ForgotPasswordForm: React.FC = () => {
   const [email, setEmail] = useState('');
-
+  const [error, setError] = useState<string | null>('');
   const [searchParams] = useSearchParams();
   const redirectURL = searchParams.get('redirect_url');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: call backend to send reset email
-    console.log({ email });
-  };
+    await sendPasswordResetEmail(email, setError);
+  }; 
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
@@ -23,6 +25,11 @@ const ForgotPasswordForm: React.FC = () => {
         value={email} 
         onChange={e => setEmail(e.target.value)} 
       />
+      {error && (
+        <Box color="error.main" mt={1}>
+          {error}
+        </Box>
+      )}
       <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
         Send Reset Link
       </Button>

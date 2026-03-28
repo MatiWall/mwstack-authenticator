@@ -201,6 +201,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.28.6":
+  version: 7.29.2
+  resolution: "@babel/runtime@npm:7.29.2"
+  checksum: 10c0/30b80a0140d16467792e1bbeb06f655b0dab70407da38dfac7fedae9c859f9ae9d846ef14ad77bd3814c064295fe9b1bc551f1541ea14646ae9f22b71a8bc17a
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.27.2":
   version: 7.27.2
   resolution: "@babel/template@npm:7.27.2"
@@ -755,6 +762,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/icons-material@npm:^7.3.9":
+  version: 7.3.9
+  resolution: "@mui/icons-material@npm:7.3.9"
+  dependencies:
+    "@babel/runtime": "npm:^7.28.6"
+  peerDependencies:
+    "@mui/material": ^7.3.9
+    "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/2df04e1f3ee2e7a960bd9f0418ac90d33595ebecf30d121b86e0b84bbffa4b8f6bce803ef66f114b23b164f29ee6357d1e3290a867fd10b3a8db505088f06366
+  languageName: node
+  linkType: hard
+
 "@mui/material@npm:^7.2.0":
   version: 7.2.0
   resolution: "@mui/material@npm:7.2.0"
@@ -890,6 +913,20 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/e1b49f3c9e822d51ba12c7ba16b4efdf5bcbc59ea5f980da331864330425dace49922206f2ff354c925332fe5cc7bfd8d1bcb9d546a68edc21d7f1e95124ace6
+  languageName: node
+  linkType: hard
+
+"@mwstack/alerting@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@mwstack/alerting@npm:0.1.0"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    "@mui/material": "*"
+    "@types/react": "*"
+    react: "*"
+    uuid: "*"
+  checksum: 10c0/5b3a3c5436cb1ac086a05fc83124930b8a78d0b2b1d0400ccec9b35d14d247099cb292a2418e9a7e18fa63f24bfd5e861a306634f86d7fcc4c5ed52386344e00
   languageName: node
   linkType: hard
 
@@ -2062,7 +2099,9 @@ __metadata:
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.1"
     "@eslint/js": "npm:^9.30.1"
+    "@mui/icons-material": "npm:^7.3.9"
     "@mui/material": "npm:^7.2.0"
+    "@mwstack/alerting": "npm:^0.1.0"
     "@types/react": "npm:^19.1.8"
     "@types/react-dom": "npm:^19.1.6"
     "@vitejs/plugin-react": "npm:^4.6.0"
@@ -2076,6 +2115,7 @@ __metadata:
     react-router-dom: "npm:^7.7.1"
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.35.1"
+    uuid: "npm:^13.0.0"
     vite: "npm:^7.0.4"
   languageName: unknown
   linkType: soft
@@ -3432,6 +3472,15 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 10c0/4ef57b45aa820d7ac6496e9208559986c665e49447cb072744c13b66925a362d96dd5a46c4530a6b8e203e5db5fe849369444440cb22ecfc26c679359e5dfa3c
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "uuid@npm:13.0.0"
+  bin:
+    uuid: dist-node/bin/uuid
+  checksum: 10c0/950e4c18d57fef6c69675344f5700a08af21e26b9eff2bf2180427564297368c538ea11ac9fb2e6528b17fc3966a9fd2c5049361b0b63c7d654f3c550c9b3d67
   languageName: node
   linkType: hard
 

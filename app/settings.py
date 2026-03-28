@@ -19,6 +19,8 @@ class Config:
     port: int
     
     enable_otel: bool
+    
+    resend_token: str
 
     
 

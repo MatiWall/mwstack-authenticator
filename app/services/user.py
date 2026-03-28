@@ -4,6 +4,7 @@ from fastapi import HTTPException
 from sqlmodel import Session, select
 
 from app.models import user
+from app.services.email import send_email
 from app.services.security import get_password_hash, verify_password
 logger = logging.getLogger(__name__)
 from app.db.models import User
@@ -107,3 +108,15 @@ def reset_user_password(reset_request: user.ResetPasswordRequest, session: Sessi
     session.refresh(db_user)
 
     return UserPasswordUpdate(message="Password reset successful", user_id=db_user.id)
+
+
+def send_reset_email(email: str):
+
+    send_email(
+        to_email=email,
+        subject="Password Reset Request",
+        body="Click the link below to reset your password:\n\nhttp://localhost:8000/reset-password?email={email}&token=example-token"
+    )
+
+
+    pass

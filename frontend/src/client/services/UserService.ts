@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ForgotPasswordRequest } from '../models/ForgotPasswordRequest';
 import type { LoginRequest } from '../models/LoginRequest';
 import type { ResetPasswordRequest } from '../models/ResetPasswordRequest';
 import type { Token } from '../models/Token';
@@ -83,13 +84,21 @@ export class UserService {
     }
     /**
      * Forgot Password
+     * @param requestBody
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static forgotPasswordUserForgotPasswordGet(): CancelablePromise<any> {
+    public static forgotPasswordUserForgotPasswordPost(
+        requestBody: ForgotPasswordRequest,
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
-            method: 'GET',
+            method: 'POST',
             url: '/user/forgot-password',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
     /**
